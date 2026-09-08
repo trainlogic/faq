@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrainLogic – Fragen und Antworten</title>
+<meta name="description" content="Antworten zu TrainLogic: Workouts, Trainingsplan, Pro, Konto und Daten. Wer keine Antwort findet, stellt seine Frage direkt hier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Public+Sans:wght@400;600&display=swap">
+<style>
+  /* Farben und Schriften wie auf fitnessdoneright.de/trainlogic, damit die
+     Seite im Wix-Rahmen (HTML-Element, Modus Webadresse) nahtlos sitzt. */
+  :root{--grund:#06101B;--karte:#0C1A2B;--rand:#1B2C40;--orange:#F26A2C;--orange2:#FB8E5A;--grau:#8C9AAB;--hell:#F2F5F9;--gruen:#22C55E;--rot:#EF4444}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--grund);color:var(--hell);font-family:"Public Sans","Wix Madefor Text",system-ui,-apple-system,sans-serif;line-height:1.55}
+  body{padding:28px 20px 48px}
+  .seite{max-width:820px;margin:0 auto}
+  h1{font-family:"Manrope","Wix Madefor Display",system-ui,sans-serif;font-size:clamp(28px,4.5vw,40px);font-weight:800;margin:0 0 6px;letter-spacing:-.5px}
+  .unter{color:var(--grau);margin:0 0 22px;font-size:16px}
+  /* Suche */
+  .suche{position:relative;margin-bottom:10px}
+  .suche input{width:100%;font:inherit;font-size:17px;color:var(--hell);background:var(--karte);border:1px solid var(--rand);border-radius:12px;padding:15px 44px 15px 46px;outline:none;transition:border-color .15s}
+  .suche input:focus{border-color:var(--orange)}
+  .suche input::placeholder{color:#5F6F82}
+  .suche .lupe{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--grau);pointer-events:none}
+  .suche .leeren{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--grau);font-size:22px;line-height:1;cursor:pointer;display:none}
+  .suche .leeren:hover{background:var(--rand);color:var(--hell)}
+  .suche.hatText .leeren{display:block}
+  .stand{color:var(--grau);font-size:14px;margin:0 0 18px;min-height:20px}
+  .stand b{color:var(--hell);font-weight:600}
+  /* Themen-Chips */
+  .themen{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .themen button{font:inherit;font-size:13px;font-weight:600;color:var(--grau);background:transparent;border:1px solid var(--rand);border-radius:999px;padding:6px 12px;cursor:pointer;transition:all .15s}
+  .themen button:hover{color:var(--hell);border-color:#2B3F58}
+  .themen button.aktiv{color:#fff;background:var(--orange);border-color:var(--orange)}
+  /* Liste */
+  .gruppe{margin:26px 0 8px;font-family:"Manrope",system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange)}
+  .gruppe:first-child{margin-top:0}
+  details{background:var(--karte);border:1px solid var(--rand);border-radius:12px;margin:0 0 8px;overflow:hidden}
+  details[open]{border-color:#2B3F58}
+  summary{list-style:none;cursor:pointer;padding:14px 46px 14px 18px;font-family:"Manrope",system-ui,sans-serif;font-weight:700;font-size:16px;position:relative;line-height:1.4}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";position:absolute;right:18px;top:19px;width:9px;height:9px;border-right:2px solid var(--grau);border-bottom:2px solid var(--grau);transform:rotate(45deg);transition:transform .15s}
+  details[open] summary::after{transform:rotate(225deg);top:23px}
+  summary:hover{color:var(--orange2)}
+  .antwort{padding:0 18px 16px;color:#C9D3DF;font-size:15.5px}
+  .antwort p{margin:0 0 10px}
+  .antwort p:last-child{margin:0}
+  .antwort ul{margin:0 0 10px;padding-left:20px}
+  .antwort li{margin:3px 0}
+  .antwort a{color:var(--orange2)}
+  mark{background:rgba(242,106,44,.28);color:inherit;border-radius:3px;padding:0 1px}
+  /* Kein Treffer + Formular */
+  .leer{background:var(--karte);border:1px dashed var(--rand);border-radius:12px;padding:22px 20px;text-align:center;color:var(--grau)}
+  .leer b{color:var(--hell);display:block;font-family:"Manrope",system-ui,sans-serif;font-size:18px;margin-bottom:6px}
+  .frageKasten{margin-top:30px;background:var(--karte);border:1px solid var(--rand);border-radius:14px;padding:22px 20px}
+  .frageKasten h2{font-family:"Manrope",system-ui,sans-serif;font-size:20px;margin:0 0 4px}
+  .frageKasten .hinweis{color:var(--grau);font-size:14px;margin:0 0 16px}
+  .fuss{margin-top:30px;text-align:center;color:var(--grau);font-size:14px}
+  .fuss button,.knopf{font:inherit;font-weight:700;font-size:15px;color:#fff;background:var(--orange);border:0;border-radius:10px;padding:12px 22px;cursor:pointer;transition:background .15s}
+  .fuss button:hover,.knopf:hover{background:var(--orange2)}
+  .knopf[disabled]{opacity:.55;cursor:default}
+  label{display:block;font-size:14px;font-weight:600;color:var(--grau);margin:12px 0 5px}
+  label span{font-weight:400}
+  input[type=text],input[type=email],textarea{width:100%;font:inherit;font-size:15px;color:var(--hell);background:var(--grund);border:1px solid var(--rand);border-radius:10px;padding:11px 13px;outline:none}
+  input:focus,textarea:focus{border-color:var(--orange)}
+  textarea{min-height:110px;resize:vertical}
+  .zeile{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.zeile{grid-template-columns:1fr}}
+  .captcha{margin:16px 0 8px;min-height:65px}
+  .honig{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .rueck{margin-top:12px;font-size:15px;min-height:22px}
+  .rueck.ok{color:var(--gruen)}
+  .rueck.fehler{color:var(--rot)}
+  .datenschutz{color:var(--grau);font-size:12.5px;margin-top:12px}
+  .datenschutz a{color:var(--grau)}
+</style>
+</head>
+<body>
+<div class="seite">
+  <h1>Fragen und Antworten</h1>
+  <p class="unter">Alles zu TrainLogic an einem Ort. Tipp ein Wort oder eine Frage, die Liste filtert sich beim Tippen.</p>
+
+  <div class="suche" id="sucheKasten">
+    <svg class="lupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="suche" type="search" placeholder="Zum Beispiel: Abo kündigen, Pulsgurt, Plan, Konto löschen" autocomplete="off" aria-label="FAQ durchsuchen">
+    <button class="leeren" id="leeren" type="button" aria-label="Suche leeren">&times;</button>
+  </div>
+  <p class="stand" id="stand"></p>
+  <div class="themen" id="themen"></div>
+
+  <div id="liste"></div>
+
+  <div class="fuss" id="fuss">
+    Deine Frage ist nicht dabei? <button type="button" id="frageZeigen">Frage stellen</button>
+  </div>
+
+  <section class="frageKasten" id="frageKasten" hidden>
+    <h2>Stell deine Frage</h2>
+    <p class="hinweis">Ich lese jede Frage selbst. Was oft gefragt wird, landet hier in der Liste.</p>
+    <form id="frageForm" novalidate>
+      <label for="frage">Deine Frage</label>
+      <textarea id="frage" name="frage" maxlength="2000" required placeholder="Was möchtest du wissen?"></textarea>
+      <div class="zeile">
+        <div>
+          <label for="name">Name <span>(freiwillig)</span></label>
+          <input id="name" name="name" type="text" maxlength="120" autocomplete="name">
+        </div>
+        <div>
+          <label for="email">E-Mail <span>(freiwillig, falls du eine Antwort möchtest)</span></label>
+          <input id="email" name="email" type="email" maxlength="200" autocomplete="email">
+        </div>
+      </div>
+      <input class="honig" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="captcha" id="captcha"></div>
+      <button class="knopf" id="senden" type="submit">Frage abschicken</button>
+      <div class="rueck" id="rueck" aria-live="polite"></div>
+      <p class="datenschutz">Gespeichert werden nur deine Frage, dein Name und deine E-Mail, falls du sie angibst. Das Captcha stammt von Cloudflare Turnstile. Mehr in der <a href="https://www.fitnessdoneright.de/trainlogic-datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
+    </form>
+  </section>
+</div>
+
+<script>
+// Schluessel und Adressen. Der Turnstile-Site-Key unten ist Cloudflares
+// oeffentlicher TESTSCHLUESSEL (besteht immer). Fuer den Betrieb den
+// echten Key aus dem Cloudflare-Dashboard eintragen (Hostname:
+// trainlogic.github.io) und das Geheimnis als Supabase-Secret
+// TURNSTILE_SECRET setzen — siehe LIESMICH.md.
+var TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
+var FRAGE_URL = "https://ruuzoauujkrdqnjfemcg.supabase.co/functions/v1/faq-frage";
+
+// Die Antworten. "themen" sind zusaetzliche Suchwoerter, die im Text nicht
+// vorkommen (Synonyme, Umgangssprache, englische Begriffe).
+var FAQS = [
+ {g:"Allgemein", f:"Was ist TrainLogic?", a:"<p>TrainLogic ist eine Trainings-App für funktionelles Training, Hybrid-Wettkampf, Gewichtheben, Strongman und alles, was du dir selbst zusammenstellst. Sie baut dir Workouts, schreibt mit, was du geschafft hast, und rechnet dir aus, wann du mehr Gewicht auflegen kannst.</p><p>Der Unterschied zu einem Zettel oder einem Plan von der Stange: Die Zahlen kommen aus deinen eigenen Bestwerten und Logs, und die Wiederholungszahlen der Workouts sind an knapp 40.000 belegten Workouts kalibriert.</p>", t:"app crossfit wod hyrox functional fitness einsteiger anfänger"},
+ {g:"Allgemein", f:"Für welche Geräte gibt es TrainLogic?", a:"<p>Für Android bei Google Play und für iPhone im App Store. Beide Fassungen haben denselben Funktionsumfang.</p><p>Eine Web- oder Desktop-Version gibt es nicht. Mit einem Konto kannst du aber auf mehreren Geräten trainieren, die Daten werden synchronisiert.</p>", t:"android iphone ios ipad tablet apple google play app store download herunterladen installieren pc windows mac browser"},
+ {g:"Allgemein", f:"Ist TrainLogic auch für Anfänger geeignet?", a:"<p>Ja. Beim Einrichten gibst du dein Level an, und der Generator wählt Übungen und Wiederholungszahlen danach. Wer <em>scaled</em> trainiert, bekommt eine leichtere Übung statt nur einer kleineren Zahl, zum Beispiel Jumping Pull-Ups statt Pull-Ups.</p><p>Zu fast jeder Übung gibt es ein Video mit Ausführung und einem klaren Kriterium, ab wann die Bewegung als beherrscht gilt.</p>", t:"beginner einsteiger neuling level scaled skalierung leicht"},
+ {g:"Allgemein", f:"Wer steckt hinter TrainLogic?", a:"<p>TrainLogic wird von einer Person entwickelt, neben dem eigenen Training. Was in der App landet, wird vorher selbst benutzt. Fehlt dir etwas oder funktioniert etwas nicht, schreib es unten ins Formular. Vieles davon ist im nächsten Update drin.</p>", t:"entwickler hersteller firma kontakt support hilfe"},
+
+ {g:"Kosten und Pro", f:"Was kostet TrainLogic?", a:"<p>Der Download ist kostenlos, und vieles funktioniert ohne Konto und ohne Abo: der Workout-Generator mit allen Presets, Timer, Logbuch, Benchmarks und PRs, Badges, Rechner und Coaches.</p><p>TrainLogic Pro kostet 3,99 € im Monat oder 34,99 € im Jahr (das sind 2,92 € im Monat). Pro schaltet vor allem den Trainingsplan über acht Wochen frei.</p>", t:"preis kosten kostenlos gratis free umsonst abo abonnement euro geld bezahlen premium"},
+ {g:"Kosten und Pro", f:"Was ist in Pro enthalten, was nicht?", a:"<ul><li><b>Nur Pro:</b> Trainingsplan über acht Wochen mit acht Zielen, der mit deinen Bestwerten und Logs rechnet; Hybrid-Athlete-WODs und Rennanalyse; WOD-Filter nach Muskelgruppe und Übung; Smart Chipper Builder mit Time-Caps und Ermüdungsmodell; Community-WODs einreichen, ansehen und liken; der Reiter „Besucher“ in Mein Gym.</li><li><b>Mit Pro unbegrenzt, frei begrenzt:</b> sichtbare Logs (frei 30), gespeicherte eigene Workouts (frei 5), Teilen-Farben (frei 1, Pro 12).</li><li><b>Für alle gleich:</b> Generator, Timer, Benchmarks und PRs, Badges, Streaks, Kalorienrechner, 1RM- und Pulsrechner.</li></ul>", t:"free vs pro unterschied funktionen vergleich enthalten inklusive"},
+ {g:"Kosten und Pro", f:"Wie kündige ich das Pro-Abo?", a:"<p>Das Abo läuft über den Store, in dem du es abgeschlossen hast, und wird auch dort gekündigt, nicht in der App:</p><ul><li><b>iPhone:</b> Einstellungen → dein Name → Abonnements → TrainLogic → Abo kündigen.</li><li><b>Android:</b> Play Store → Profilbild → Zahlungen und Abos → Abos → TrainLogic → Kündigen.</li></ul><p>Pro bleibt bis zum Ende der bezahlten Laufzeit aktiv. Deine Daten bleiben erhalten, du siehst danach nur wieder die Grenzen der freien Version.</p>", t:"kündigen kuendigen abbestellen beenden abo stoppen abonnement löschen rückerstattung erstattung"},
+ {g:"Kosten und Pro", f:"Gilt mein Abo auf allen Geräten?", a:"<p>Innerhalb desselben Stores ja: Ein Abo aus dem App Store gilt auf allen Geräten mit deiner Apple-ID, eines aus Google Play auf allen mit deinem Google-Konto. Wechselst du von Android auf iPhone oder umgekehrt, kann das Abo nicht mitgenommen werden, weil die Stores getrennt abrechnen. Dann kündigst du es im alten Store und schließt es im neuen ab.</p>", t:"wechsel gerät geraet übertragen apple google familie"},
+ {g:"Kosten und Pro", f:"Ich habe Pro gekauft, aber die App zeigt es nicht an.", a:"<p>Öffne in der App das Profil und tippe auf „Käufe wiederherstellen“. Das holt den Status frisch beim Store. Prüfe außerdem, dass du im Store mit demselben Konto angemeldet bist, mit dem du gekauft hast. Bleibt es dabei, schick unten eine Nachricht mit dem Datum des Kaufs.</p>", t:"wiederherstellen restore kauf nicht erkannt fehlt pro weg problem"},
+
+ {g:"Konto und Daten", f:"Brauche ich ein Konto?", a:"<p>Nein. Ohne Konto bleibt alles auf deinem Gerät: Workouts, Logs, Profil, Plan. Ein Konto brauchst du nur, wenn du deine Daten über mehrere Geräte synchronisieren willst, für die Community oder um Freunde in dein Gym einzuladen.</p>", t:"registrieren anmelden login account ohne konto pflicht"},
+ {g:"Konto und Daten", f:"Wo liegen meine Daten?", a:"<p>Auf deinem Gerät. Erst mit einem Konto werden Logs, Profil und Plan zusätzlich in der Cloud gespeichert, damit sie auf deinen anderen Geräten ankommen. Das ist freiwillig, keine Bedingung. Die Einzelheiten stehen in der <a href=\"https://www.fitnessdoneright.de/trainlogic-datenschutz\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a>.</p>", t:"datenschutz privatsphäre dsgvo speicherung cloud server sicherheit"},
+ {g:"Konto und Daten", f:"Wie lösche ich mein Konto?", a:"<p>Direkt in der App: Profil → Konto → Konto löschen. Damit werden Konto und alle dazu gespeicherten Daten auf dem Server entfernt. Was lokal auf dem Gerät liegt, bleibt, bis du die App deinstallierst.</p><p>Eine Anleitung mit Bildern steht unter <a href=\"https://www.fitnessdoneright.de/trainlogic-account-loeschen\" target=\"_blank\" rel=\"noopener\">Konto löschen</a>.</p>", t:"account löschen entfernen deaktivieren daten löschen"},
+ {g:"Konto und Daten", f:"Ich habe ein neues Handy. Wie nehme ich meine Daten mit?", a:"<p>Mit einem Konto: Melde dich auf dem alten Gerät an (falls noch nicht geschehen) und warte, bis die Synchronisation durch ist. Dann auf dem neuen Gerät die App installieren und mit demselben Konto anmelden. Logs, Profil und Plan kommen von selbst.</p><p>Ohne Konto gibt es keinen Umzug, weil die Daten nur auf dem Gerät liegen. Leg das Konto also besser an, bevor du das alte Handy weggibst.</p>", t:"umzug wechsel neues gerät übertragen backup sicherung export import synchronisieren sync"},
+ {g:"Konto und Daten", f:"Funktioniert die App offline?", a:"<p>Ja. Generator, Timer, Logbuch und Plan laufen ohne Netz. Internet braucht es nur für Konto und Synchronisation, die Community, Mein Gym mit Besuchern und die Übungsvideos.</p>", t:"offline ohne internet flugmodus netz verbindung"},
+
+ {g:"Workouts und Generator", f:"Woher kommen die Wiederholungszahlen in den Workouts?", a:"<p>Aus knapp 40.000 belegten Workouts echter Boxen, ausgewertet nach Format, Übung und Level. Ein AMRAP bekommt andere Dosen als ein For Time. Die Zahlen sind merkbar (21-15-9, 10-20-30), keine 11er. Scaled bekommt eine andere Übung statt nur einer kleineren Zahl.</p>", t:"reps wiederholungen dosen kalibriert belege daten quelle warum"},
+ {g:"Workouts und Generator", f:"Welche Presets gibt es im Generator?", a:"<p>Zwölf: Functional Fitness, Weightlifting, Olympisches Gewichtheben, Gymnastics, Ausdauer, Home Workout, Kettlebell, Strongman, Partner, Benchmark, Hero und Hybrid Athlete (Pro). Dazu vier Dauerstufen von kurz bis über vierzig Minuten, die du kombinieren kannst.</p>", t:"preset modus kategorie art typ auswahl dauer minuten"},
+ {g:"Workouts und Generator", f:"Kann ich nur mit meinen eigenen Geräten trainieren?", a:"<p>Ja. Im Profil trägst du dein Equipment ein, und der Generator nimmt nur Übungen, die damit gehen. Für zuhause gibt es außerdem das Preset Home Workout. Über die Wunschübung kannst du eine Übung vorgeben, dann wird das WOD darum gebaut.</p>", t:"equipment ausrüstung geräte zuhause home garage hantel kettlebell ohne geräte bodyweight filter"},
+ {g:"Workouts und Generator", f:"Wie funktioniert der Schnellstart?", a:"<p>App-Symbol auf dem Homescreen lange drücken, 10, 20 oder 30 Minuten wählen, und das fertige WOD steht. Geht auf iPhone und Android.</p>", t:"schnellstart quick start homescreen symbol lange drücken widget"},
+ {g:"Workouts und Generator", f:"Kann ich ein Workout vom Whiteboard abfotografieren?", a:"<p>Ja. Im Builder fotografierst du das Whiteboard, die App liest Übungen, Wiederholungen und Zeit aus dem Foto und legt das Workout an. Handschrift klappt nicht immer sauber, prüf das Ergebnis vor dem Start.</p>", t:"whiteboard foto kamera scannen ocr abfotografieren tafel einlesen"},
+ {g:"Workouts und Generator", f:"Gibt es Partner-Workouts?", a:"<p>Ja, das Preset Partner baut Workouts für zwei: im Minutenwechsel, mit Wechsel nach jeder Übung oder synchron. Beim Loggen stellst du ein, wie ihr euch geteilt habt, dann stimmen auch die Kalorien.</p>", t:"partner zu zweit team paar freund gemeinsam"},
+ {g:"Workouts und Generator", f:"Welche Benchmark- und Hero-Workouts sind drin?", a:"<p>Über zweihundert: 41 Benchmarks (die Girls, Open-Workouts und mehr) und 217 Hero-WODs. Bei einem Benchmark steht deine Bestzeit und der letzte Lauf direkt unter dem Workout, bevor die Uhr läuft.</p>", t:"benchmark hero girls fran murph cindy grace open katalog liste"},
+
+ {g:"Trainingsplan", f:"Wie funktioniert der Trainingsplan?", a:"<p>Du wählst ein Ziel und deine Trainingstage (zwei bis sechs die Woche), der Plan läuft über acht Wochen. Die Gewichte rechnet er aus deinen Bestwerten, die Steigerung aus deinen eigenen Logs. Jede erledigte Einheit landet im Logbuch und verschiebt den nächsten Block.</p><p>Der Plan ist Teil von Pro.</p>", t:"plan trainingsplan wochen block programm periodisierung progression"},
+ {g:"Trainingsplan", f:"Welche Ziele gibt es im Plan?", a:"<p>Acht: Muskelaufbau, Kraft, Kraftausdauer, Functional Fitness, Hybrid Athlete, Ausdauer (Laufen, Rad, Rudern, Schwimmen), Kraftdreikampf und Strongman.</p>", t:"ziel ziele muskelaufbau kraft ausdauer laufen schwimmen powerlifting strongman hybrid abnehmen"},
+ {g:"Trainingsplan", f:"Was passiert, wenn ich eine Einheit auslasse oder krank bin?", a:"<p>Nichts Schlimmes. Der Plan rechnet die Steigerung aus dem, was du wirklich geloggt hast, nicht aus dem Kalender. Ausgelassene Einheiten holst du nach oder lässt sie weg. Fällt ein gemessener Bestwert nach einer Pause niedriger aus, nimmt der nächste Block das als Anker, statt weiter hochzurechnen.</p>", t:"pause krank urlaub verletzung auslassen verpasst überspringen nachholen"},
+ {g:"Trainingsplan", f:"Kann ich neben dem Plan noch freie Workouts machen?", a:"<p>Ja. Der Generator bleibt frei nutzbar, geloggte Einheiten zählen für Badges, XP und Kalorien. Der Plan bleibt davon unberührt, er steigert nur nach seinen eigenen Einheiten.</p>", t:"zusätzlich extra nebenbei kombinieren"},
+
+ {g:"Logbuch und Fortschritt", f:"Was sind Benchmarks und PRs?", a:"<p>Jeder geloggte Benchmark und jedes Hero-WOD wird zur Kurve: Bestzeit, Datum und Entwicklung seit dem ersten Mal. Bei For Time die Zeit, bei AMRAP die Runden, bei Lifts das Gewicht. Nach dem Speichern meldet die App einen neuen PR. Ein Tipp öffnet das Log im Kalender, ein zweiter das WOD, wie es damals geloggt wurde.</p>", t:"pr personal record bestzeit rekord verlauf kurve fortschritt statistik"},
+ {g:"Logbuch und Fortschritt", f:"Wie berechnet die App mein 1RM?", a:"<p>Der 1RM-Rechner schätzt aus Gewicht und Wiederholungen dein Maximum. Im Plan wird daraus ein Trainingsmax, das im nächsten Block mit Deckel steigt. Ein neu gemessener niedrigerer Wert setzt den Vortrag außer Kraft, damit nach einer Verletzung nicht weiter hochgerechnet wird.</p>", t:"1rm one rep max maximum rechner trainingsmax gewicht berechnen"},
+ {g:"Logbuch und Fortschritt", f:"Was bedeuten XP, Level, Badges und Streaks?", a:"<p>Jede geloggte Einheit bringt XP, aus XP wird dein Level. 80 Badges gibt es für Meilensteine, Streaks zählen zusammenhängende Trainingswochen. Das Statuspunkte-Radar zeigt, wo du stehst: Kraft, Ausdauer, Beweglichkeit, Schnelligkeit und mehr. Alles davon ist frei.</p>", t:"xp level badges abzeichen streak statuspunkte radar gamification"},
+ {g:"Logbuch und Fortschritt", f:"Wie viele Logs kann ich speichern?", a:"<p>Speichern kannst du unbegrenzt. In der freien Version sind die letzten 30 Logs sichtbar, mit Pro alle, dazu die Kalenderansicht mit Wochenbild. Nichts wird gelöscht, wenn du ohne Pro über 30 kommst.</p>", t:"logs limit grenze anzahl kalender verlauf"},
+
+ {g:"Puls und Kalorien", f:"Welche Pulsgurte funktionieren?", a:"<p>Brustgurte mit Bluetooth Low Energy nach dem Standardprofil, also die üblichen Gurte von Polar, Garmin, Wahoo und anderen. Auf Android kann die App zusätzlich Health Connect lesen. Mit Gurt siehst du den Puls im Timer, danach die Analyse mit Zonen und Coaching.</p>", t:"pulsgurt brustgurt herzfrequenz bluetooth polar garmin wahoo apple watch uhr smartwatch health connect verbinden koppeln"},
+ {g:"Puls und Kalorien", f:"Funktioniert TrainLogic mit der Apple Watch oder einer Garmin?", a:"<p>Eine eigene Uhren-App gibt es noch nicht. Der Puls kommt live nur über einen Bluetooth-Brustgurt. Uhren, die ihren Puls als Bluetooth-Sensor senden können (bei vielen Garmin- und Polar-Modellen einstellbar), funktionieren wie ein Gurt.</p>", t:"apple watch garmin polar smartwatch uhr wear os watchos"},
+ {g:"Puls und Kalorien", f:"Wie rechnet der Kalorienrechner?", a:"<p>Grundumsatz nach Mifflin-St Jeor, dazu Alltag, Training und Verdauung, und er nimmt deine geloggten Einheiten mit. Er sagt dir, wo die Schätzung streut, statt eine Zahl zu behaupten. Die Makros haben einen Eiweiß-Deckel, damit die Empfehlung nicht ins Absurde läuft. Der Rechner ist frei.</p>", t:"kalorien makros ernährung eiweiß protein grundumsatz abnehmen zunehmen"},
+ {g:"Puls und Kalorien", f:"Die Kalorien einer Einheit wirken zu hoch oder zu niedrig.", a:"<p>Ohne Puls schätzt die App aus Format, Übungen und Dauer, das streut. Mit Gurt wird es genauer. Prüfe außerdem Gewicht und Alter im Profil, beide gehen in die Rechnung ein. Bei Partner-Workouts stell beim Loggen die Aufteilung ein.</p>", t:"kalorien falsch ungenau zu viel zu wenig schätzung"},
+
+ {g:"Community und Mein Gym", f:"Was ist Mein Gym?", a:"<p>Eine isometrische Ansicht deines eigenen Gyms, die du mit Geräten einrichtest. Geräte kaufst du mit Fitcoins, und Fitcoins gibt es nur für geloggte Workouts, einen je verdientem XP. Sie sind nicht käuflich und schalten keine Funktion frei, das Gym ist reine Motivation.</p>", t:"mein gym virtual gym fitcoins ftc münzen einrichten isometrisch"},
+ {g:"Community und Mein Gym", f:"Wie lade ich Freunde in mein Gym ein?", a:"<p>Im Reiter „Besucher“ (Pro) tippst du „Jemanden einladen“. Du bekommst einen Code und einen QR-Code, den du teilen kannst. Wer den Link öffnet oder den Code in seiner App eingibt, ist automatisch mit dir befreundet und in deinem Gym eingebucht. Ein Konto brauchen beide.</p>", t:"einladen einladung freunde code qr besucher freundschaft folgen"},
+ {g:"Community und Mein Gym", f:"Was kann ich in der Community machen?", a:"<p>Eigene WODs einreichen, veröffentlichte WODs ansehen und liken, bei der Challenge des Monats mitmachen, anderen folgen, sie herausfordern und dich in Rankings vergleichen. Freigegebene Workouts werden nach deinem Equipment gefiltert. Einreichen, ansehen und liken sind Teil von Pro.</p>", t:"community teilen veröffentlichen rangliste ranking challenge follower"},
+ {g:"Community und Mein Gym", f:"Kann ich meine Workouts auf Instagram teilen?", a:"<p>Ja. Zu jedem geloggten Workout gibt es eine Teilen-Karte mit deinen Zahlen in vier Stilen für Story und Feed. Frei mit einer Farbe, mit Pro mit zwölf.</p>", t:"instagram story teilen karte bild export social media"},
+
+ {g:"Probleme", f:"Die App stürzt ab oder zeigt einen Fehler.", a:"<p>Erst die App komplett schließen und neu öffnen, dann prüfen, ob im Store ein Update wartet. Hilft das nicht, schick unten eine Nachricht mit Gerät, Version und dem, was du gerade gemacht hast. Deine Daten sind bei einem Absturz nicht weg.</p>", t:"absturz crash fehler bug hängt friert ein schwarz startet nicht"},
+ {g:"Probleme", f:"Meine Daten sind nach dem Update weg.", a:"<p>Meist sind sie nicht weg, sondern die App ist mit einem anderen oder keinem Konto angemeldet. Prüf im Profil, ob du angemeldet bist, und melde dich gegebenenfalls mit dem alten Konto an. Ohne Konto liegen die Daten nur lokal, ein Neuinstallieren löscht sie.</p>", t:"daten weg verloren verschwunden update neu installiert leer"},
+ {g:"Probleme", f:"Ich habe eine Idee oder mir fehlt eine Übung.", a:"<p>Her damit. Schreib es unten ins Formular, mit Namen der Übung oder einer Beschreibung der Idee. Übungen bekommen ein Video und ein Meisterungs-Kriterium, das dauert etwas, kommt aber.</p>", t:"vorschlag idee wunsch feature übung fehlt feedback"}
+];
+
+// --- Suche -------------------------------------------------------------
+// Normalisiert Text fuer den Vergleich: klein, Umlaute als ae/oe/ue/ss,
+// alles ausser Buchstaben und Ziffern wird zum Leerzeichen.
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .replace(/<[^>]+>/g," ")
+    .replace(/[^a-z0-9]+/g," ").trim();
+}
+// Kleine Schreibfehler verzeihen: Levenshtein-Abstand, abgebrochen ab 2.
+function abstand(a,b){
+  if(Math.abs(a.length-b.length)>1) return 2;
+  var prev=[],cur=[],i,j;
+  for(j=0;j<=b.length;j++) prev[j]=j;
+  for(i=1;i<=a.length;i++){
+    cur=[i]; var min=i;
+    for(j=1;j<=b.length;j++){
+      cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+      if(cur[j]<min) min=cur[j];
+    }
+    if(min>1) return 2;
+    prev=cur;
+  }
+  return prev[b.length];
+}
+var STOPP={"ich":1,"wie":1,"was":1,"kann":1,"ist":1,"die":1,"der":1,"das":1,"ein":1,"eine":1,"und":1,"mit":1,"in":1,"im":1,"zu":1,"es":1,"gibt":1,"mein":1,"meine":1,"man":1,"den":1,"dem":1,"auf":1,"fuer":1,"von":1,"bei":1,"nicht":1,"auch":1,"ob":1,"oder":1,"trainlogic":1,"app":1};
+FAQS.forEach(function(x){
+  x.wF=norm(x.f).split(" ");
+  x.wA=norm(x.a).split(" ");
+  x.wT=norm(x.t||"").split(" ");
+});
+// Wie gut passt ein Suchwort zu einer Wortliste? 0 = gar nicht.
+function trifft(wort,liste){
+  var best=0;
+  for(var i=0;i<liste.length;i++){
+    var w=liste[i];
+    if(w===wort) return 3;
+    if(w.indexOf(wort)===0 || (wort.length>=4 && wort.indexOf(w)===0 && w.length>=4)) best=Math.max(best,2);
+    else if(wort.length>=5 && w.length>=5 && abstand(wort,w)<=1) best=Math.max(best,1);
+  }
+  return best;
+}
+function suche(text){
+  var woerter=norm(text).split(" ").filter(function(w){return w.length>=2 && !STOPP[w];});
+  if(!woerter.length) return null;           // nichts Brauchbares getippt: alles zeigen
+  var treffer=[];
+  FAQS.forEach(function(x){
+    var punkte=0, alle=true;
+    woerter.forEach(function(w){
+      var p=trifft(w,x.wF)*3 + trifft(w,x.wT)*2 + trifft(w,x.wA);
+      if(!p) alle=false;
+      punkte+=p;
+    });
+    // Ein Wort: es muss passen. Mehrere Woerter: mindestens die Haelfte,
+    // damit "abo auf dem iphone kündigen" nicht an "iphone" scheitert.
+    var noetig=woerter.length===1?1:Math.ceil(woerter.length/2);
+    var passend=woerter.filter(function(w){return trifft(w,x.wF)||trifft(w,x.wT)||trifft(w,x.wA);}).length;
+    if(passend>=noetig) treffer.push({x:x,p:punkte+(alle?10:0)});
+  });
+  treffer.sort(function(a,b){return b.p-a.p;});
+  return treffer.map(function(t){return t.x;});
+}
+
+// --- Anzeige ------------------------------------------------------------
+var liste=document.getElementById("liste"), stand=document.getElementById("stand");
+var eingabe=document.getElementById("suche"), themenEl=document.getElementById("themen");
+var frageKasten=document.getElementById("frageKasten"), fuss=document.getElementById("fuss");
+var aktivesThema=null;
+var GRUPPEN=[]; FAQS.forEach(function(x){ if(GRUPPEN.indexOf(x.g)<0) GRUPPEN.push(x.g); });
+GRUPPEN.forEach(function(g){
+  var b=document.createElement("button"); b.type="button"; b.textContent=g;
+  b.onclick=function(){ aktivesThema=(aktivesThema===g)?null:g; eingabe.value=""; zeige(); };
+  themenEl.appendChild(b);
+});
+function markiere(html,woerter){
+  if(!woerter.length) return html;
+  // Nur im Text markieren, nicht in Tags: Text zwischen > und < bearbeiten.
+  return html.replace(/(^|>)([^<]+)/g,function(m,a,text){
+    woerter.forEach(function(w){
+      if(w.length<3) return;
+      var re=new RegExp("("+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi");
+      text=text.replace(re,"<mark>$1</mark>");
+    });
+    return a+text;
+  });
+}
+function karte(x,offen,woerter){
+  var d=document.createElement("details"); if(offen) d.open=true;
+  d.innerHTML="<summary>"+markiere(x.f,woerter)+"</summary><div class=\"antwort\">"+markiere(x.a,woerter)+"</div>";
+  return d;
+}
+function zeige(){
+  var text=eingabe.value, ergebnis=suche(text);
+  var woerter=norm(text).split(" ").filter(function(w){return w.length>=3;});
+  document.getElementById("sucheKasten").classList.toggle("hatText",text.length>0);
+  liste.innerHTML="";
+  Array.prototype.forEach.call(themenEl.children,function(b){ b.classList.toggle("aktiv",b.textContent===aktivesThema); });
+
+  if(ergebnis===null){
+    // Alles, nach Gruppen, optional auf ein Thema gefiltert
+    var gruppen=aktivesThema?[aktivesThema]:GRUPPEN;
+    gruppen.forEach(function(g){
+      var h=document.createElement("div"); h.className="gruppe"; h.textContent=g; liste.appendChild(h);
+      FAQS.filter(function(x){return x.g===g;}).forEach(function(x){ liste.appendChild(karte(x,false,[])); });
+    });
+    stand.innerHTML=aktivesThema?("<b>"+FAQS.filter(function(x){return x.g===aktivesThema;}).length+"</b> Antworten zu "+aktivesThema):("<b>"+FAQS.length+"</b> Antworten");
+    frageKasten.hidden=true; fuss.hidden=false;
+    return;
+  }
+  aktivesThema=null;
+  Array.prototype.forEach.call(themenEl.children,function(b){ b.classList.remove("aktiv"); });
+  if(!ergebnis.length){
+    stand.innerHTML="Keine Antwort zu <b>"+escapeHtml(text)+"</b>";
+    var leer=document.createElement("div"); leer.className="leer";
+    leer.innerHTML="<b>Dazu steht hier noch nichts.</b>Stell deine Frage unten, ich antworte dir und nehme sie in die Liste auf.";
+    liste.appendChild(leer);
+    frageZeigen(text); fuss.hidden=true;
+    return;
+  }
+  stand.innerHTML="<b>"+ergebnis.length+"</b> "+(ergebnis.length===1?"Antwort":"Antworten")+" zu <b>"+escapeHtml(text)+"</b>";
+  ergebnis.forEach(function(x,i){ liste.appendChild(karte(x,ergebnis.length<=3||i===0,woerter)); });
+  frageKasten.hidden=true; fuss.hidden=false;
+}
+function escapeHtml(s){ return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+
+var tippTimer=null;
+eingabe.addEventListener("input",function(){ clearTimeout(tippTimer); tippTimer=setTimeout(zeige,120); });
+document.getElementById("leeren").onclick=function(){ eingabe.value=""; zeige(); eingabe.focus(); };
+document.getElementById("frageZeigen").onclick=function(){ frageZeigen(""); frageKasten.scrollIntoView({behavior:"smooth",block:"start"}); };
+
+// Suchbegriff aus der Adresse uebernehmen (?q=...), damit man Antworten verlinken kann
+var q=new URLSearchParams(location.search).get("q"); if(q){ eingabe.value=q; }
+zeige();
+
+// --- Formular -----------------------------------------------------------
+var captchaId=null, captchaToken="";
+function frageZeigen(vorbelegung){
+  frageKasten.hidden=false;
+  var f=document.getElementById("frage");
+  if(vorbelegung && !f.value) f.value=vorbelegung;
+  captchaLaden();
+}
+function captchaLaden(){
+  if(captchaId!==null) return;
+  if(!window.turnstile){ setTimeout(captchaLaden,300); return; }
+  captchaId=window.turnstile.render("#captcha",{sitekey:TURNSTILE_SITE_KEY, theme:"dark", language:"de",
+    callback:function(t){captchaToken=t;}, "expired-callback":function(){captchaToken="";}, "error-callback":function(){captchaToken="";}});
+}
+document.getElementById("frageForm").addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var rueck=document.getElementById("rueck"), knopf=document.getElementById("senden");
+  var frage=document.getElementById("frage").value.trim();
+  var email=document.getElementById("email").value.trim();
+  rueck.className="rueck"; rueck.textContent="";
+  if(frage.length<5){ rueck.className="rueck fehler"; rueck.textContent="Bitte schreib deine Frage ins Feld."; return; }
+  if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ rueck.className="rueck fehler"; rueck.textContent="Die E-Mail-Adresse sieht nicht richtig aus."; return; }
+  if(!captchaToken){ rueck.className="rueck fehler"; rueck.textContent="Bitte das Captcha bestätigen."; return; }
+  knopf.disabled=true; rueck.textContent="Wird gesendet …";
+  fetch(FRAGE_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+    frage:frage, name:document.getElementById("name").value.trim(), email:email,
+    suche:eingabe.value.trim().slice(0,200), website:document.querySelector(".honig").value, token:captchaToken
+  })}).then(function(r){ return r.json().catch(function(){return {ok:false,grund:"antwort"};}); }).then(function(j){
+    if(j && j.ok){
+      rueck.className="rueck ok"; rueck.textContent="Danke, deine Frage ist angekommen."+(email?" Ich melde mich per E-Mail.":"");
+      document.getElementById("frageForm").reset();
+    } else {
+      var grund=(j&&j.grund)||"";
+      rueck.className="rueck fehler";
+      rueck.textContent=grund==="captcha"?"Das Captcha ist abgelaufen, bitte noch einmal bestätigen.":grund==="zu_viele"?"Das waren gerade viele Fragen von dieser Verbindung. Versuch es in einer Viertelstunde noch einmal.":"Das hat nicht geklappt. Versuch es später noch einmal.";
+    }
+    if(window.turnstile && captchaId!==null){ window.turnstile.reset(captchaId); captchaToken=""; }
+  }).catch(function(){
+    rueck.className="rueck fehler"; rueck.textContent="Keine Verbindung. Prüf dein Netz und versuch es noch einmal.";
+  }).then(function(){ knopf.disabled=false; });
+});
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+</body>
+</html>
